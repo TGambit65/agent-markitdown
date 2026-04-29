@@ -1,5 +1,8 @@
 # agent-markitdown
 
+[![CI](https://github.com/TGambit65/agent-markitdown/actions/workflows/ci.yml/badge.svg)](https://github.com/TGambit65/agent-markitdown/actions/workflows/ci.yml)
+[![Release](https://github.com/TGambit65/agent-markitdown/actions/workflows/release.yml/badge.svg)](https://github.com/TGambit65/agent-markitdown/actions/workflows/release.yml)
+
 Safe local document-to-markdown preprocessing for agents.
 
 Built for OpenClaw first, but intentionally usable from Claude Code, Codex, Hermes Agent, and anything else that can run a local CLI or Python package.
@@ -36,6 +39,12 @@ This package does **not** magically patch every agent runtime on earth.
 It gives you a safe preprocessing layer plus integration assets. Each host agent still needs a tiny adapter or instruction layer telling it to run `agent-markitdown` before review.
 
 OpenClaw gets a ready-made skill. Other agents get drop-in snippets.
+
+## Status
+
+- GitHub repo: live
+- CI/release workflows: included
+- PyPI publish path: ready once a token or trusted publisher is configured
 
 ## Installation
 
@@ -104,6 +113,12 @@ See [`integrations/openclaw/SKILL.md`](integrations/openclaw/SKILL.md).
 
 That skill tells OpenClaw to preprocess supported uploaded documents into markdown **before deeper review/summarization work**.
 
+Install the OpenClaw skill into a workspace:
+
+```bash
+./scripts/install-openclaw-skill.sh
+```
+
 ## Other agents
 
 - Claude Code: [`integrations/claude-code/AGENTS.md`](integrations/claude-code/AGENTS.md)
@@ -122,6 +137,17 @@ This package intentionally avoids the broadest `markitdown` surfaces.
 - configurable size cap
 
 If you're handling untrusted uploads in a server context, keep validating paths and storing uploads in a controlled temp area. This package narrows the blast radius; it does not replace sane host hygiene.
+
+## Release flow
+
+- CI runs on push/PR
+- release workflow runs on `v*` tags
+- tagged releases build wheel + sdist and attach them to a GitHub release
+- PyPI publish is attempted automatically when either:
+  - `PYPI_API_TOKEN` repo secret exists, or
+  - `PYPI_TRUSTED_PUBLISHING=true` repo variable is set and PyPI trusted publishing is configured
+
+See [`docs/publishing.md`](docs/publishing.md) and [`docs/release-checklist.md`](docs/release-checklist.md).
 
 ## Attribution
 

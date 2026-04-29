@@ -8,14 +8,33 @@ version = "0.1.0"
 description = "Safe local document-to-markdown preprocessing for OpenClaw, Claude Code, Codex, Hermes, and other agents."
 readme = "README.md"
 requires-python = ">=3.10"
-license = "MIT"
+license = { file = "LICENSE" }
 authors = [
   { name = "Threshold" }
 ]
 keywords = ["markdown", "pdf", "docx", "agents", "openclaw", "claude-code", "codex"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Text Processing :: Markup",
+]
 dependencies = [
   "markitdown[docx,pdf,pptx,xlsx]>=0.1.5",
 ]
+
+[project.urls]
+Homepage = "https://github.com/TGambit65/agent-markitdown"
+Repository = "https://github.com/TGambit65/agent-markitdown"
+Issues = "https://github.com/TGambit65/agent-markitdown/issues"
+Changelog = "https://github.com/TGambit65/agent-markitdown/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
