@@ -49,5 +49,14 @@ agent-markitdown = "agent_markitdown.cli:main"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
+[tool.hatch.build]
+exclude = [
+  ".venv/",
+  ".venv*/",
+  ".pytest_cache/",
+  "dist/",
+  "build/",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/agent_markitdown"]

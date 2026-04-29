@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -130,7 +130,7 @@ def convert_file(
 
 def build_review_pack(reports: Iterable[ConversionReport]) -> ReviewPack:
     items = list(reports)
-    now = datetime.now(UTC).replace(microsecond=0).isoformat()
+    now = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     parts = [
         "# Agent Review Pack",
         "",
