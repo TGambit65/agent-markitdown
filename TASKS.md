@@ -12,12 +12,12 @@
 - [x] Add changelog / release checklist
 - [x] Verify source and wheel builds locally
 - [x] Create and push first release tag
-- [ ] Publish to PyPI if credentials or trusted publishing are ready
+- [ ] BLOCKED-EXTERNAL Publish to PyPI once credentials or trusted publishing are ready. Owner: Kelly/repo admin. Next: add `PYPI_API_TOKEN` secret or set `PYPI_TRUSTED_PUBLISHING=true` plus PyPI trusted-publisher setup.
 - [x] If PyPI publish blocks, document exact remaining one-time setup cleanly
 
 ## Current blocker
 
-- PyPI publishing is ready in GitHub Actions, but this repo currently has no `PYPI_API_TOKEN` secret and no `PYPI_TRUSTED_PUBLISHING=true` repo variable / PyPI trusted-publisher setup yet.
+- BLOCKED-EXTERNAL Publish to PyPI. Owner: Kelly/repo admin. Next: add `PYPI_API_TOKEN` secret or set `PYPI_TRUSTED_PUBLISHING=true` plus PyPI trusted-publisher setup. Current state: GitHub Actions release workflow is ready, but this repo currently has neither the secret nor the trusted-publishing configuration yet.
 
 ## Stretch / follow-up
 
