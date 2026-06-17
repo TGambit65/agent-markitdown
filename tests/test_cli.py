@@ -14,7 +14,15 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from agent_markitdown.converter import default_output_path, validate_local_input  # noqa: E402
+from agent_markitdown.converter import (  # noqa: E402
+    IMAGE_TEXT_WARNING,
+    LOW_TEXT_WARNING,
+    build_review_pack,
+    convert_file,
+    default_output_path,
+    extraction_warnings,
+    validate_local_input,
+)
 
 
 def _run(args: list[str]) -> subprocess.CompletedProcess[str]:
@@ -68,6 +76,22 @@ def test_convert_docx_to_json(tmp_path: Path) -> None:
     assert payload["ok"] is True
     assert payload["extension"] == ".docx"
     assert "Hello from DOCX." in payload["markdown"]
+    assert payload["warnings"] == []
+
+
+def test_convert_low_text_to_json_warns_about_incomplete_extraction(tmp_path: Path) -> None:
+    source = tmp_path / "short.txt"
+    source.write_text("tiny", encoding="utf-8")
+    result = _run(["convert", str(source), "--json"])
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["ok"] is True
+    assert LOW_TEXT_WARNING in payload["warnings"]
+
+
+def test_image_extensions_warn_about_visual_text() -> None:
+    warnings = extraction_warnings(".png", "This image has enough metadata text to avoid the low-text warning.")
+    assert warnings == [IMAGE_TEXT_WARNING]
 
 
 def test_convert_pdf_sidecar(tmp_path: Path) -> None:
@@ -88,6 +112,15 @@ def test_review_pack(tmp_path: Path) -> None:
     assert result.returncode == 0, result.stderr
     assert "# Agent Review Pack" in result.stdout
     assert "Hello from DOCX." in result.stdout
+
+
+def test_review_pack_includes_extraction_warnings(tmp_path: Path) -> None:
+    source = tmp_path / "short.txt"
+    source.write_text("tiny", encoding="utf-8")
+    pack = build_review_pack([convert_file(source)])
+    assert "- Warnings:" in pack.markdown
+    assert LOW_TEXT_WARNING in pack.markdown
+    assert pack.files[0].warnings == [LOW_TEXT_WARNING]
 
 
 def test_doctor() -> None:

@@ -8,6 +8,8 @@ agent-markitdown convert /path/to/file.pdf --json
 
 Use the returned markdown as the main artifact for analysis.
 
+Check the JSON `warnings` array. If it is non-empty, tell the user what may be missing and use OCR, PDF-native analysis, or vision when the missing content matters.
+
 For multi-document review bundles:
 
 ```bash

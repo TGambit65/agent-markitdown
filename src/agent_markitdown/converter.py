@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
@@ -33,6 +33,25 @@ SUPPORTED_EXTENSIONS = (
     ".webp",
 )
 DEFAULT_MAX_MB = 25.0
+MIN_USEFUL_TEXT_CHARS = 20
+LOW_TEXT_WARNING = (
+    "Extraction produced very little text; for scanned or degraded documents, "
+    "use an OCR/vision path and treat this markdown as incomplete."
+)
+IMAGE_TEXT_WARNING = (
+    "Image inputs may contain visual text that local markdown extraction cannot read; "
+    "use OCR/vision when the image text or layout matters."
+)
+IMAGE_EXTENSIONS = (
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".tif",
+    ".tiff",
+    ".webp",
+)
 
 
 @dataclass(slots=True)
@@ -47,6 +66,7 @@ class ConversionReport:
     markdown: str
     converter: str = "markitdown"
     plugins_enabled: bool = False
+    warnings: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -97,6 +117,15 @@ def default_output_path(input_path: str | Path) -> Path:
     return source.with_suffix(source.suffix + ".md")
 
 
+def extraction_warnings(extension: str, markdown: str) -> list[str]:
+    warnings: list[str] = []
+    if len(markdown.strip()) < MIN_USEFUL_TEXT_CHARS:
+        warnings.append(LOW_TEXT_WARNING)
+    if extension in IMAGE_EXTENSIONS:
+        warnings.append(IMAGE_TEXT_WARNING)
+    return warnings
+
+
 def convert_file(
     path: str | Path,
     *,
@@ -108,6 +137,7 @@ def convert_file(
     md = MarkItDown(enable_plugins=enable_plugins)
     result = md.convert_local(source, file_extension=source.suffix.lower())
     markdown = result.markdown.rstrip() + "\n"
+    warnings = extraction_warnings(source.suffix.lower(), markdown)
 
     final_output: Path | None = None
     if output_path is not None:
@@ -125,6 +155,7 @@ def convert_file(
         chars_out=len(markdown),
         markdown=markdown,
         plugins_enabled=enable_plugins,
+        warnings=warnings,
     )
 
 
@@ -150,6 +181,11 @@ def build_review_pack(reports: Iterable[ConversionReport]) -> ReviewPack:
                 f"- Extension: `{report.extension}`",
                 f"- Input bytes: {report.bytes_in}",
                 f"- Extracted chars: {report.chars_out}",
+                *(
+                    ["- Warnings:", *[f"  - {warning}" for warning in report.warnings]]
+                    if report.warnings
+                    else []
+                ),
                 "",
                 report.markdown.rstrip(),
                 "",

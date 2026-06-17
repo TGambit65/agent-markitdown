@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Added
+- Extraction warnings for low-text results and image inputs that may need OCR/vision fallback.
+- Example review-pack handoff consumer for Codex, Claude Code, Hermes, and similar local agent CLIs.
+- Example host-side auto-preprocess adapter that emits profile-specific agent prompts.
+
 ## [0.1.0] - 2026-04-28
 
 ### Added

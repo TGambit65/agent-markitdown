@@ -26,8 +26,9 @@ agent-markitdown convert /path/to/file.pdf --json
 ```
 
 3. Use the returned markdown as the main review artifact.
-4. Preserve the original file path for provenance.
-5. If the user wants a reusable artifact, write a sidecar or review pack.
+4. Check the returned `warnings` array. If it is non-empty, surface the warning before treating the markdown as complete.
+5. Preserve the original file path for provenance.
+6. If the user wants a reusable artifact, write a sidecar or review pack.
 
 ## Reusable artifacts
 
@@ -48,4 +49,4 @@ agent-markitdown review-pack /path/to/file1.pdf /path/to/file2.docx -o /tmp/revi
 - This tool is local-only by design.
 - Plugins are off by default.
 - ZIP files are intentionally blocked.
-- If the document is badly scanned or the extraction is obviously degraded, say so and switch to a richer OCR/PDF path.
+- If warnings mention low text, scans, image text, or degraded extraction, say so and switch to a richer OCR/PDF or vision path when the missing content matters.

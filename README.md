@@ -17,6 +17,7 @@ Built for OpenClaw first, but intentionally usable from Claude Code, Codex, Herm
 - extension allowlist
 - size guardrail
 - deterministic JSON output
+- extraction warnings when markdown may be incomplete
 - review-pack generation for LLM handoff
 
 ## Why this exists
@@ -75,6 +76,8 @@ agent-markitdown convert ./report.pdf
 agent-markitdown convert ./report.docx --json
 ```
 
+JSON output includes a `warnings` array. It is empty for ordinary text extraction, and it calls out cases where the markdown should not be treated as complete, such as very low extracted text or image inputs that may need OCR/vision review.
+
 ### Write sidecar markdown files
 
 ```bash
@@ -125,6 +128,10 @@ Install the OpenClaw skill into a workspace:
 - Codex: [`integrations/codex/AGENTS.md`](integrations/codex/AGENTS.md)
 - Hermes Agent: [`integrations/hermes-agent/SKILL.md`](integrations/hermes-agent/SKILL.md)
 
+For copyable host-side patterns, see:
+- [`examples/review-pack-consumers/`](examples/review-pack-consumers/) for a generic review-pack handoff
+- [`examples/auto-preprocess-adapters/`](examples/auto-preprocess-adapters/) for profile-specific prompt adapters that can sit in front of agent CLIs
+
 ## Security stance
 
 This package intentionally avoids the broadest `markitdown` surfaces.
@@ -135,6 +142,7 @@ This package intentionally avoids the broadest `markitdown` surfaces.
 - no ZIP traversal support
 - explicit extension allowlist
 - configurable size cap
+- warnings for low-text extraction and image inputs that may need OCR/vision
 
 If you're handling untrusted uploads in a server context, keep validating paths and storing uploads in a controlled temp area. This package narrows the blast radius; it does not replace sane host hygiene.
 

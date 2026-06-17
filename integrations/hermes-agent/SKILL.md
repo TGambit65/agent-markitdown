@@ -9,6 +9,8 @@ Use:
 agent-markitdown convert /path/to/file.pdf --json
 ```
 
+Use the returned markdown as the main review artifact. If `warnings` is non-empty, surface those warnings and use OCR, PDF-native analysis, or vision when the markdown may be incomplete.
+
 For multiple documents:
 
 ```bash

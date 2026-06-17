@@ -21,6 +21,6 @@
 
 ## Stretch / follow-up
 
-- [ ] Optional OCR story for degraded scans
-- [ ] Optional host-specific auto-preprocess adapters beyond docs
-- [ ] Example review-pack consumers for more agent frameworks
+- [x] Add OCR/degraded-scan warning story for low-text and image inputs
+- [x] Optional host-specific auto-preprocess adapters beyond docs
+- [x] Example review-pack consumers for more agent frameworks

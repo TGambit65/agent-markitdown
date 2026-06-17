@@ -21,7 +21,18 @@ Markdown is:
 
 `review-pack` creates a single markdown file with:
 - source metadata
+- extraction warnings
 - file-by-file sections
 - extracted markdown content
 
 That makes it portable across OpenClaw, Claude Code, Codex, Hermes, and similar runtimes.
+
+## Extraction limits
+
+`agent-markitdown` is a local markdown preprocessing layer, not an OCR system.
+
+Converted files include warnings when extraction looks incomplete:
+- very low extracted text warns that scanned or degraded documents may need OCR/vision
+- image inputs warn that visual text and layout may not be represented in markdown
+
+Host agents should surface those warnings before relying on the markdown as the full document contents.
