@@ -12,12 +12,12 @@
 - [x] Add changelog / release checklist
 - [x] Verify source and wheel builds locally
 - [x] Create and push first release tag
-- [ ] BLOCKED-EXTERNAL Publish to PyPI once credentials or trusted publishing are ready. Owner: Kelly/repo admin. Next: add `PYPI_API_TOKEN` secret or set `PYPI_TRUSTED_PUBLISHING=true` plus PyPI trusted-publisher setup.
+- [x] Publish to PyPI — DONE 2026-06-19. `PYPI_API_TOKEN` secret added by Kelly; v0.1.1 published via release workflow. Live at https://pypi.org/project/agent-markitdown/ and verified installable in a clean venv.
 - [x] If PyPI publish blocks, document exact remaining one-time setup cleanly
 
 ## Current blocker
 
-- BLOCKED-EXTERNAL Publish to PyPI. Owner: Kelly/repo admin. Next: add `PYPI_API_TOKEN` secret or set `PYPI_TRUSTED_PUBLISHING=true` plus PyPI trusted-publisher setup. Current state: GitHub Actions release workflow is ready, but this repo currently has neither the secret nor the trusted-publishing configuration yet.
+- None. v0.1.1 shipped to PyPI 2026-06-19.
 
 ## Stretch / follow-up
 
