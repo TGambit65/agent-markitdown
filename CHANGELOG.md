@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [0.1.2] - 2026-06-20
+
+### Added
+- `--version` flag and a `version` field in `doctor` output.
+
+### Fixed
+- `__version__` is now derived from installed package metadata (single source of truth), fixing the stale `0.1.0` it reported while the package was `0.1.1`.
+
 ## [0.1.1] - 2026-06-19
 
 ### Added

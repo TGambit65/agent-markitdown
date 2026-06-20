@@ -5,6 +5,7 @@ import json
 import sys
 from pathlib import Path
 
+from . import __version__
 from .converter import (
     DEFAULT_MAX_MB,
     build_review_pack,
@@ -18,6 +19,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="agent-markitdown",
         description="Safe local document-to-markdown preprocessing for agents.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"agent-markitdown {__version__}",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -123,6 +129,7 @@ def main(argv: list[str] | None = None) -> int:
             _print_json(
                 {
                     "ok": True,
+                    "version": __version__,
                     "supported_extensions": list(supported_extensions()),
                     "plugins_default": False,
                     "local_only": True,

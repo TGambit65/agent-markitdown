@@ -5,7 +5,7 @@
 - Run `uv build`
 - Confirm README and CHANGELOG reflect the release
 - Confirm integration docs still match actual behavior
-- Confirm version in `pyproject.toml` and `src/agent_markitdown/__init__.py`
+- Bump `version` in `pyproject.toml` (single source of truth; `__init__.py` reads it at runtime from package metadata)
 
 ## Tag and release
 - Create annotated tag: `git tag -a vX.Y.Z -m "vX.Y.Z"`
