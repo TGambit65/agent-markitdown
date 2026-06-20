@@ -43,23 +43,25 @@ OpenClaw gets a ready-made skill. Other agents get drop-in snippets.
 
 ## Status
 
-- GitHub repo: live
+- GitHub repo: public
 - CI/release workflows: included
-- PyPI publish path: ready once a token or trusted publisher is configured
+- PyPI: published — install with `pip install agent-markitdown`
 
 ## Installation
+
+From PyPI:
+
+```bash
+pip install agent-markitdown
+```
+
+Or from source:
 
 ```bash
 uv venv .venv
 uv pip install --python .venv/bin/python .
 # or with test/dev dependencies
 uv pip install --python .venv/bin/python '.[dev]'
-```
-
-Or from PyPI later:
-
-```bash
-pip install agent-markitdown
 ```
 
 ## CLI
