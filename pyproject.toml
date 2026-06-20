@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agent-markitdown"
-version = "0.1.0"
+version = "0.1.1"
 description = "Safe local document-to-markdown preprocessing for OpenClaw, Claude Code, Codex, Hermes, and other agents."
 readme = "README.md"
 requires-python = ">=3.10"
